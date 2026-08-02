@@ -4,6 +4,17 @@ An AI-powered CRM copilot built on top of Twenty CRM and Odysseus.
 
 This project automatically retrieves company information from Twenty CRM, sends it to a local LLM through Odysseus, generates an AI sales analysis, and writes the generated summary directly back into the CRM.
 
+## Prerequisites
+
+Before running this project, ensure the following services are already installed and running:
+
+- Twenty CRM
+- Odysseus
+- Ollama with a compatible language model (e.g., Llama 3.2)
+- Python 3.10+
+
+The bridge communicates with these services over their local REST APIs.
+
 ---
 
 ## Features
