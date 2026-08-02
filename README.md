@@ -1,144 +1,92 @@
-# 🤖 Twenty AI CRM Copilot
+# Twenty AI CRM Copilot
 
-An AI-powered CRM copilot that automatically generates strategic company insights inside Twenty CRM using a local large language model.
+An AI-powered CRM copilot built on top of Twenty CRM and Odysseus.
 
-Built with **FastAPI**, **Twenty CRM**, **Odysseus**, and **Ollama**.
-
----
-
-## 📌 Overview
-
-Twenty AI CRM Copilot extends Twenty CRM by generating AI-powered company intelligence directly within CRM records.
-
-Instead of manually researching companies, users can trigger an automated workflow that:
-
-1. Retrieves company information from Twenty CRM
-2. Sends the data to a local AI model through Odysseus
-3. Generates strategic business insights
-4. Writes the results directly back into the company's **AI Summary** field
-
-Everything runs locally, allowing organizations to keep sensitive CRM data under their own control.
+This project automatically retrieves company information from Twenty CRM, sends it to a local LLM through Odysseus, generates an AI sales analysis, and writes the generated summary directly back into the CRM.
 
 ---
 
-## ✨ Features
+## Features
 
-- 🤖 AI-generated executive summaries
-- 💼 Sales opportunity identification
-- ⚠️ Potential risk analysis
-- ✅ Recommended next actions
-- 📊 Confidence scoring
-- 🔄 Automatic updates to Twenty CRM
-- 🔒 Local-first architecture using Ollama
-- ⚡ FastAPI integration layer
-- 🧠 Llama 3.2 powered analysis
+- Retrieve company records from Twenty CRM
+- Generate AI-powered company summaries
+- Sales opportunity analysis
+- Risk identification
+- Recommended next actions
+- Confidence scoring
+- Automatically save AI output back into the CRM
 
 ---
 
-# Architecture
+## Architecture
 
 ```
-                    +----------------------+
-                    |     Twenty CRM       |
-                    +----------+-----------+
-                               |
-                      REST API |
-                               |
-                               ▼
-                   +-----------------------+
-                   |    FastAPI Bridge     |
-                   +-----------+-----------+
-                               |
-                 Company Data  |
-                               ▼
-                    +----------------------+
-                    |      Odysseus        |
-                    +-----------+----------+
-                                |
-                          Prompt |
-                                ▼
-                     +----------------------+
-                     |   Ollama (Llama3.2)  |
-                     +-----------+----------+
-                                 |
-                       AI Response|
-                                 ▼
-                    +-----------------------+
-                    | Update AI Summary     |
-                    +-----------+-----------+
-                                |
-                                ▼
-                        Twenty CRM Record
+                Twenty CRM
+                     │
+                     │ REST API
+                     ▼
+        ┌────────────────────────┐
+        │   FastAPI Bridge       │
+        │  (Python Backend)      │
+        └────────────────────────┘
+             │              │
+             │              │
+             ▼              ▼
+      Twenty REST API   Odysseus API
+                             │
+                             ▼
+                     Local LLM (Ollama)
 ```
 
 ---
 
-# Example Workflow
+## Tech Stack
 
-```
-Company selected
-
-↓
-
-Retrieve company information
-
-↓
-
-Generate AI prompt
-
-↓
-
-Send prompt to Odysseus
-
-↓
-
-Llama 3.2 analyzes company
-
-↓
-
-Receive AI-generated report
-
-↓
-
-Update AI Summary inside Twenty CRM
-```
+- Python
+- FastAPI
+- Requests
+- Twenty CRM
+- Odysseus
+- Ollama
+- Llama 3.2
+- REST APIs
 
 ---
 
-# Tech Stack
+## Example Workflow
 
-| Technology | Purpose |
-|------------|---------|
-| Python | Backend |
-| FastAPI | API Bridge |
-| Twenty CRM | CRM Platform |
-| Odysseus | AI Orchestration |
-| Ollama | Local LLM Runtime |
-| Llama 3.2 | Language Model |
-| REST API | CRM Integration |
+1. User selects a company inside Twenty CRM.
+2. The FastAPI bridge retrieves company information.
+3. Company context is sent to Odysseus.
+4. The local LLM generates:
 
----
+- Executive Summary
+- Sales Opportunities
+- Risks
+- Recommended Next Action
+- Confidence Score
 
-# Project Structure
-
-```
-twenty-ai-crm-copilot
-│
-├── bridge
-│   ├── app.py
-│   ├── requirements.txt
-│   └── .env.example
-│
-├── screenshots
-│
-├── README.md
-│
-└── .gitignore
-```
+5. The generated summary is automatically written back into the company's **AI Summary** field inside Twenty CRM.
 
 ---
 
-# Installation
+## Example Output
+
+### Company
+
+Housecall Pro
+
+### AI Summary
+
+- Executive Summary
+- Sales Opportunities
+- Potential Risks
+- Recommended Next Action
+- Confidence Score
+
+---
+
+## Installation
 
 Clone the repository.
 
@@ -162,7 +110,7 @@ ODYSSEUS_URL=http://127.0.0.1:7000
 ODYSSEUS_SESSION=YOUR_SESSION_ID
 ```
 
-Run the API.
+Run the bridge.
 
 ```bash
 uvicorn app:app --reload
@@ -170,11 +118,11 @@ uvicorn app:app --reload
 
 ---
 
-# API Endpoint
+## API
 
-Generate an AI summary for a company.
+Generate a summary.
 
-```
+```http
 POST /generate-summary
 ```
 
@@ -182,47 +130,31 @@ Example request
 
 ```json
 {
-  "company_id": "YOUR_COMPANY_ID"
+    "company_id": "YOUR_COMPANY_ID"
 }
 ```
 
 ---
 
-# Example Output
+## Future Improvements
 
-The AI automatically generates insights including:
-
-- Executive Summary
-- Sales Opportunities
-- Potential Risks
-- Recommended Next Action
-- Confidence Score
-
-The response is automatically written back into the company's **AI Summary** field inside Twenty CRM.
-
----
-
-# Roadmap
-
-- [x] Connect to Twenty CRM REST API
-- [x] Generate AI summaries
-- [x] Automatically update CRM records
-- [ ] One-click "Generate Summary" button inside Twenty
-- [ ] Company enrichment from external sources
-- [ ] AI-generated outreach emails
-- [ ] Lead scoring
-- [ ] Multi-model support
+- AI lead scoring
+- Meeting summarization
+- Contact enrichment
+- Email drafting
+- Prospect research
+- CRM chat assistant
+- Multi-model support
+- Workflow automation
 
 ---
 
-# Why I Built This
+## Inspiration
 
-Traditional CRMs store data but often require users to manually interpret it before taking action.
-
-This project explores how local AI models can augment CRM workflows by transforming company data into actionable insights while keeping sensitive business information under the user's control.
+This project demonstrates how open-source AI can be integrated directly into an open-source CRM to create a self-hosted AI sales copilot using local language models.
 
 ---
 
-# License
+## License
 
-MIT License
+MIT
