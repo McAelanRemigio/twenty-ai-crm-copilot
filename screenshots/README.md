@@ -6,7 +6,7 @@ This project demonstrates an end-to-end AI CRM workflow. A company record is ret
 
 The generated AI Summary is stored directly within the company record, giving users strategic insights without leaving the CRM.
 
-![AI Summary in Twenty CRM](screenshots/twenty.png)
+![AI Summary in Twenty CRM](twenty.png)
 
 ---
 
@@ -14,7 +14,7 @@ The generated AI Summary is stored directly within the company record, giving us
 
 The bridge sends company context to Odysseus, which uses a local Llama model to generate an executive summary, sales opportunities, potential risks, recommended next actions, and a confidence score.
 
-![Odysseus Response](screenshots/odysseus.png)
+![Odysseus Response](odysseus.png)
 
 ---
 
@@ -22,4 +22,4 @@ The bridge sends company context to Odysseus, which uses a local Llama model to 
 
 The FastAPI bridge receives a company ID, retrieves the company from Twenty CRM, generates an AI analysis through Odysseus, and updates the CRM with the resulting summary. The workflow was successfully tested on multiple company records (including Housecall Pro and Google), demonstrating that the integration is reusable rather than hardcoded for a single example.
 
-![End-to-End Workflow](screenshots/google.png)
+![End-to-End Workflow](google.png)
